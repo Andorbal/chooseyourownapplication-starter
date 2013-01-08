@@ -11,3 +11,5 @@ $ ->
   questionsView = new App.Views.Questions
     el: $('#questions')
     model: questions
+
+  questions.fetch()
