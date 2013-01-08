@@ -12,6 +12,10 @@ class App.Views.Question extends Backbone.View
     data.tally = @model.voteTally()
 
     @$el.html this.template data
+
+    userName = App.currentUser.get 'userName'
+    @$('.voteup').toggleClass "selected", this.model.didUserVoteUp(userName)
+    @$('.votedown').toggleClass "selected", this.model.didUserVoteDown(userName)
     @
 
   upVote: -> @setVote "up"
