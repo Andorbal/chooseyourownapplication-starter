@@ -8,3 +8,6 @@ $ ->
   newQuestionView = new App.Views.NewQuestion
     el: $('#newQuestionView')
     model: questions
+  questionsView = new App.Views.Questions
+    el: $('#questions')
+    model: questions
