@@ -2,11 +2,24 @@ class App.Models.Question extends Backbone.Model
   defaults:
     votes: []
 
+  constrain: (value, min, max) ->
+    return min if value < min
+    return max if value > max
+    value
+
+  getExistingVote: (userName) ->
+    _(@get('votes')).find (vote) -> vote.voter == userName
+
   vote: (userName, voteType) ->
     voteValue = if voteType == 'up' then 1 else -1
-    @get('votes').push
-      value: voteValue
-      voter: userName
+    existingVote = @getExistingVote userName
+
+    if existingVote
+      existingVote.value = @constrain(existingVote.value + voteValue, -1, 1)
+    else
+      @get('votes').push
+        value: voteValue
+        voter: userName
     @save()
 
   voteTally: ->
