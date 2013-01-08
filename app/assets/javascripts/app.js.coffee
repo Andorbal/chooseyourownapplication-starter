@@ -1,4 +1,6 @@
 $ ->
+  App.pusher = new Pusher CYOA_PUSHER_KEY
+
   App.currentUser = new App.Models.User()
   questions = new App.Collections.Questions()
 
@@ -12,4 +14,5 @@ $ ->
     el: $('#questions')
     model: questions
 
+  new Backpusher App.pusher.subscribe("question-channel"), questions
   questions.fetch()

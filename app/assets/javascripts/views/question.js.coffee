@@ -7,6 +7,9 @@ class App.Views.Question extends Backbone.View
     "click .voteup": "upVote"
     "click .votedown": "downVote"
 
+  initialize: ->
+    @model.on "change", @render
+
   render: =>
     data = @model.toJSON()
     data.tally = @model.voteTally()
